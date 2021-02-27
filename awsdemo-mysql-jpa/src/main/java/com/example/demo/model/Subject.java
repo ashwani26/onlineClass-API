@@ -11,8 +11,18 @@ public class Subject {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long subjectID;
 	private String subName;
+	// to refer icon of subject
+	private long fkDocLibID;
 
 
+
+	public long getFkDocLibID() {
+		return fkDocLibID;
+	}
+
+	public void setFkDocLibID(long fkDocLibID) {
+		this.fkDocLibID = fkDocLibID;
+	}
 
 	public long getSubjectID() {
 		return subjectID;

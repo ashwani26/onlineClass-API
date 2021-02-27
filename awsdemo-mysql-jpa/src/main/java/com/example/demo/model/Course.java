@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +18,51 @@ public class Course {
 	private long fkCourseCategoryID;
 	private boolean isPublished;
 	private boolean isActive;
+	private Date endDate;
+	private String description;
+	private double price;
+	
+	
 
 	/*
 	 * private CourseCategory courseCategory; private StudyMaterial studyMaterial;
 	 */
+
+	public boolean isPublished() {
+		return isPublished;
+	}
+
+	public void setPublished(boolean isPublished) {
+		this.isPublished = isPublished;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	public boolean setIsPublished() {
 		return isPublished;
