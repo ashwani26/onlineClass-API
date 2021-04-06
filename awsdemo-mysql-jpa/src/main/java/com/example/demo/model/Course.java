@@ -6,9 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Course {
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long courseID;
@@ -16,24 +21,50 @@ public class Course {
 
 	// private CourseCategory courseCategory;
 	private long fkCourseCategoryID;
-	private boolean isPublished;
-	private boolean isActive;
+	private boolean status;
 	private Date endDate;
+
 	private String description;
 	private double price;
-	
+
+	// add course
+	private String subjectList;// comma seprated subject
+	private Date startDate;
+	private String logoPath;
+
 	
 
-	/*
-	 * private CourseCategory courseCategory; private StudyMaterial studyMaterial;
-	 */
 
-	public boolean isPublished() {
-		return isPublished;
+	public boolean getStatus() {
+		return status;
 	}
 
-	public void setPublished(boolean isPublished) {
-		this.isPublished = isPublished;
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	public String getSubjectList() {
+		return subjectList;
+	}
+
+	public void setSubjectList(String subjectList) {
+		this.subjectList = subjectList;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
@@ -58,26 +89,6 @@ public class Course {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public boolean setIsPublished() {
-		return isPublished;
-	}
-
-	public void setIsPublished(boolean isPublished) {
-		this.isPublished = isPublished;
-	}
-
-	public boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
 	}
 
 	public long getCourseID() {

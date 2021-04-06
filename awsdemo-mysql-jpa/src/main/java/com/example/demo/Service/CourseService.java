@@ -16,6 +16,8 @@ public class CourseService {
  
     @Autowired
     private CourseRepository repo;
+    
+    
      
     public List<Course> listAll() {
         return repo.findAll();
@@ -33,11 +35,25 @@ public class CourseService {
         repo.deleteById(id);
     }
     
+    //String courseName,long fkDisplayCategoryID,boolean status,Date startDate,Date endDate,String subjectList,  String description,double price ,long courseID
+    
+    public void update(Course course) {
+        repo.updateByCourseID(course.getCourseName(),course.getFkCourseCategoryID(),course.getStatus(),course.getStartDate(),course.getEndDate(),course.getSubjectList(),course.getDescription(),course.getPrice(),course.getCourseID());
+    }
+    
     public List<StudyMaterial> listAllStudymaterialByCourseID(long CourseID) {
         return repo.findStudyMaterialByCourseID(CourseID);
     }
     
-    
+	/*
+	 * @Transactional public boolean saveCourseAndLogo(Course course,MultipartFile
+	 * file) { DocumentLibrary docLib = new DocumentLibrary();
+	 * docLib.setFileName(file.getOriginalFilename());
+	 * docLib.setExtension(file.getOriginalFilename().substring(file.
+	 * getOriginalFilename().indexOf(".")+1)); docRepo.save(docLib);
+	 * 
+	 * course.setFkDocLibID(docLib.getDocLibID()); repo.save(course); return true; }
+	 */
     
     
   
