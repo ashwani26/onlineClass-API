@@ -11,6 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>awsdemo-mysql-jpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!--<packaging>war</packaging>  -->
 	<name>awsdemo-mysql-jpa</name>
 	<description>this is demo projectfor mysql jpa</description>
 	<properties>

@@ -1,9 +1,18 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Topic {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long topicID;
-	private long topicName;
-	private long fkSubjectID;
+	private String topicName;
+	//private long fkChapterID;
 
 	public long getTopicID() {
 		return topicID;
@@ -13,20 +22,16 @@ public class Topic {
 		this.topicID = topicID;
 	}
 
-	public long getTopicName() {
+	public String getTopicName() {
 		return topicName;
 	}
 
-	public void setTopicName(long topicName) {
+	public void setTopicName(String topicName) {
 		this.topicName = topicName;
 	}
 
-	public long getFkSubjectID() {
-		return fkSubjectID;
-	}
+	
 
-	public void setFkSubjectID(long fkSubjectID) {
-		this.fkSubjectID = fkSubjectID;
-	}
+	
 
 }
