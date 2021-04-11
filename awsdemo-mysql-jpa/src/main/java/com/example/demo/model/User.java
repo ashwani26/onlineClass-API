@@ -20,11 +20,56 @@ public class User {
 	private String mobile;
 	private String email;
 	private UserRoleType roleType;
-	private String userImagePath ;
+	private String userImagePath;
 	private String country;
 	private String state;
 
-	
+	// for teacher roletype
+	private long fkStandardID;
+	private long fkSubjectID;
+	private boolean isAvailable;
+	private boolean isPremium;
+	private String description;
+
+	public long getFkStandardID() {
+		return fkStandardID;
+	}
+
+	public void setFkStandardID(long fkStandardID) {
+		this.fkStandardID = fkStandardID;
+	}
+
+	public long getFkSubjectID() {
+		return fkSubjectID;
+	}
+
+	public void setFkSubjectID(long fkSubjectID) {
+		this.fkSubjectID = fkSubjectID;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public boolean isPremium() {
+		return isPremium;
+	}
+
+	public void setPremium(boolean isPremium) {
+		this.isPremium = isPremium;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getCountry() {
 		return country;
@@ -121,6 +166,7 @@ public class User {
 	public void seteID(String eID) {
 		this.eID = eID;
 	}
+
 	public String getUserImagePath() {
 		return userImagePath;
 	}

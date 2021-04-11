@@ -13,7 +13,16 @@ public class Topic {
 	private long topicID;
 	private String topicName;
 	private long fkChapterID;
+	private String description;
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public long getFkChapterID() {
 		return fkChapterID;
 	}
