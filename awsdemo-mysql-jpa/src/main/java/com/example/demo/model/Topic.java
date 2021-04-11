@@ -12,7 +12,15 @@ public class Topic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long topicID;
 	private String topicName;
-	//private long fkChapterID;
+	private long fkChapterID;
+	
+	public long getFkChapterID() {
+		return fkChapterID;
+	}
+
+	public void setFkChapterID(long fkChapterID) {
+		this.fkChapterID = fkChapterID;
+	}
 
 	public long getTopicID() {
 		return topicID;

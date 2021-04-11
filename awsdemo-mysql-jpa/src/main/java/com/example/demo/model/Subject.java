@@ -12,16 +12,17 @@ public class Subject {
 	private long subjectID;
 	private String subName;
 	// to refer icon of subject
-	private long fkDocLibID;
+	private long fkStandaradID;
 
 
 
-	public long getFkDocLibID() {
-		return fkDocLibID;
+
+	public long getFkStandaradID() {
+		return fkStandaradID;
 	}
 
-	public void setFkDocLibID(long fkDocLibID) {
-		this.fkDocLibID = fkDocLibID;
+	public void setFkStandaradID(long fkStandaradID) {
+		this.fkStandaradID = fkStandaradID;
 	}
 
 	public long getSubjectID() {

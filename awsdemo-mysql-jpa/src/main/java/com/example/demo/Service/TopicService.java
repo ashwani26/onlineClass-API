@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.Repository.TopicRepository;
+import com.example.demo.model.Chapter;
 import com.example.demo.model.Topic;
 
 
@@ -31,6 +32,10 @@ public class TopicService {
      
     public void delete(long id) {
     	repo.deleteById(id);
+    }
+    
+    public List<Topic> getListofTopicByChpID(long ChpID){
+    	return repo.getListofTopicByChapterID(ChpID);
     }
 
 }

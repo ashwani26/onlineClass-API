@@ -40,8 +40,8 @@ public class SubjectService {
 	 * }
 	 */
     
-    public List<Subject> getListofSubjectByUserID(long userID){
-    	return repo.getListofSubjectByUserID(userID);
+    public List<Subject> getListofSubjectByUserID(long fkstandardID){
+    	return repo.getListofSubjectByStandardID(fkstandardID);
     }
     
     

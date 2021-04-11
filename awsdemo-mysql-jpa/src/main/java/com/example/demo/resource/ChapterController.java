@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.ChapterService;
 import com.example.demo.model.Chapter;
+import com.example.demo.model.Subject;
 
 @RestController
 @CrossOrigin
@@ -35,10 +37,11 @@ public class ChapterController {
 		return service.listAll();
 	}
 	
-	/*
-	 * @GetMapping("/getAllChapter/{userID}") public List<Chapter>
-	 * getAllChapterByUserID(@PathVariable String userID) { return
-	 * service.getListofChapterByUserID(Long.valueOf(userID)); }
-	 */
+	
+	@GetMapping("/getAllChapter/{chapterID}")
+	public List<Chapter> getAllChapterByStdID(@PathVariable  String chapterID) {
+		return service.getListofChapterBySubjectID(Long.valueOf(chapterID));
+	}
+	 
 
 }

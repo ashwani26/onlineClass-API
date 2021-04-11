@@ -8,8 +8,8 @@ import com.example.demo.model.Subject;
 public interface SubjectRepositoryCustom {
 	//public boolean saveSubjectUserAssociation(UserSubjectAssociation userSubjectAssociation);
 
-	@Query("select s from UserSubjectAssociation usa inner join Subject s on s.subjectID = usa.subjectID where usa.userID=:userID")
-	public List<Subject> getListofSubjectByUserID(@Param("userID") long userID);
+	@Query("select s from Subject s  where s.fkStandaradID=:fkStandardID")
+	public List<Subject> getListofSubjectByStandardID(@Param("fkStandardID") long fkStandardID);
 	
 }
 
