@@ -1,11 +1,18 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.springframework.web.multipart.MultipartFile;
 
+@Entity
 public class FreeStudyMateral {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long freeStudymaterialID;
 	private long fkTopicID;
-	private MultipartFile file;
 	private String descriptions;
 	private long fkDocLibID;
 
@@ -25,13 +32,6 @@ public class FreeStudyMateral {
 		this.fkTopicID = fkTopicID;
 	}
 
-	public MultipartFile getFile() {
-		return file;
-	}
-
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
 
 	public String getDescriptions() {
 		return descriptions;

@@ -20,7 +20,7 @@ public class Course {
 	private String courseName;
 
 	// private CourseCategory courseCategory;
-	private long fkCourseCategoryID;
+	private long fkStandardID;
 	private boolean status;
 	private Date endDate;
 
@@ -31,9 +31,31 @@ public class Course {
 	private String subjectList;// comma seprated subject
 	private Date startDate;
 	private String logoPath;
+	
+	private long fkDocumentLibID;
+	
+	
 
 	
 
+
+	public long getFkStandardID() {
+		return fkStandardID;
+	}
+
+	public void setFkStandardID(long fkStandardID) {
+		this.fkStandardID = fkStandardID;
+	}
+
+	public long getFkDocumentLibID() {
+		return fkDocumentLibID;
+	}
+
+	public void setFkDocumentLibID(long fkDocumentLibID) {
+		this.fkDocumentLibID = fkDocumentLibID;
+	}
+
+	
 
 	public boolean getStatus() {
 		return status;
@@ -107,12 +129,5 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public long getFkCourseCategoryID() {
-		return fkCourseCategoryID;
-	}
-
-	public void setFkCourseCategoryID(long fkCourseCategoryID) {
-		this.fkCourseCategoryID = fkCourseCategoryID;
-	}
-
+	
 }
