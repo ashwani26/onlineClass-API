@@ -94,4 +94,6 @@ public class UserController {
 		
 		 return new ResponseEntity<>("User updated successfully", HttpStatus.OK); 
 	}
+	
+	
 }

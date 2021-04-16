@@ -12,8 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Course {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long courseID;
@@ -21,23 +20,33 @@ public class Course {
 
 	// private CourseCategory courseCategory;
 	private long fkStandardID;
+	private long fkSubjectID;
 	private boolean status;
 	private Date endDate;
-
 	private String description;
 	private double price;
-
-	// add course
-	private String subjectList;// comma seprated subject
 	private Date startDate;
 	private String logoPath;
-	
+	private String subjectName;
+	private String standardName;
+
+	public String getStandardName() {
+		return standardName;
+	}
+
+	public void setStandardName(String standardName) {
+		this.standardName = standardName;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
 	private long fkDocumentLibID;
-	
-	
-
-	
-
 
 	public long getFkStandardID() {
 		return fkStandardID;
@@ -55,8 +64,6 @@ public class Course {
 		this.fkDocumentLibID = fkDocumentLibID;
 	}
 
-	
-
 	public boolean getStatus() {
 		return status;
 	}
@@ -73,12 +80,12 @@ public class Course {
 		this.logoPath = logoPath;
 	}
 
-	public String getSubjectList() {
-		return subjectList;
+	public long getFkSubjectID() {
+		return fkSubjectID;
 	}
 
-	public void setSubjectList(String subjectList) {
-		this.subjectList = subjectList;
+	public void setFkSubjectID(long fkSubjectID) {
+		this.fkSubjectID = fkSubjectID;
 	}
 
 	public Date getStartDate() {
@@ -129,5 +136,4 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	
 }

@@ -38,7 +38,7 @@ public class CourseService {
     //String courseName,long fkDisplayCategoryID,boolean status,Date startDate,Date endDate,String subjectList,  String description,double price ,long courseID
     
     public void update(Course course) {
-        repo.updateByCourseID(course.getCourseName(),course.getFkDocumentLibID(),course.getStatus(),course.getStartDate(),course.getEndDate(),course.getSubjectList(),course.getDescription(),course.getPrice(),course.getCourseID());
+        repo.updateByCourseID(course.getCourseName(),course.getFkDocumentLibID(),course.getStatus(),course.getStartDate(),course.getEndDate(),course.getDescription(),course.getPrice(),course.getCourseID());
     }
     
     public List<StudyMaterial> listAllStudymaterialByCourseID(long CourseID) {

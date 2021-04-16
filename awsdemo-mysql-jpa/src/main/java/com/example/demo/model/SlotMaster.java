@@ -1,15 +1,31 @@
 package com.example.demo.model;
 
-public enum SlotMaster {
-	EIGHT_TO_NINE_AM("8-9AM"),NINE_TO_TEN_AM("9-10AM"),TEN_TO_ELEVEN_AM("10-11AM"),ELEVEN_TO_TWELVE_PM("11-12PM");
-    private String displayName;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-    SlotMaster(String displayName) {
-        this.displayName = displayName;
-    }
+@Entity
+public class SlotMaster {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long slotID;
+	private String slotName;
 
-    public String displayName() { return displayName; }
+	public long getSlotID() {
+		return slotID;
+	}
 
-    // Optionally and/or additionally, toString.
-    @Override public String toString() { return displayName; }
+	public void setSlotID(long slotID) {
+		this.slotID = slotID;
+	}
+
+	public String getSlotName() {
+		return slotName;
+	}
+
+	public void setSlotName(String slotName) {
+		this.slotName = slotName;
+	}
+
 }

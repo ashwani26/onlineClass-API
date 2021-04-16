@@ -26,10 +26,43 @@ public class User {
 
 	// for teacher roletype
 	private long fkStandardID;
+	private String standardName;
+	
 	private long fkSubjectID;
+	private String subjectName;
+	
 	private boolean isAvailable;
 	private boolean isPremium;
 	private String description;
+	private long fkDocumentLibraryID;
+
+	
+	public long getFkDocumentLibraryID() {
+		return fkDocumentLibraryID;
+	}
+
+
+	public void setFkDocumentLibraryID(long fkDocumentLibraryID) {
+		this.fkDocumentLibraryID = fkDocumentLibraryID;
+	}
+
+
+	public String getStandardName() {
+		return standardName;
+	}
+
+
+	public void setStandardName(String standardName) {
+		this.standardName = standardName;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
 
 	public long getFkStandardID() {
 		return fkStandardID;
@@ -47,11 +80,11 @@ public class User {
 		this.fkSubjectID = fkSubjectID;
 	}
 
-	public boolean isAvailable() {
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
 
-	public void setAvailable(boolean isAvailable) {
+	public void setIsAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
