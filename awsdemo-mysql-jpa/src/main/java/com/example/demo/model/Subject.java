@@ -13,9 +13,26 @@ public class Subject {
 	private String subName;
 	// to refer icon of subject
 	private long fkStandaradID;
+	private String standardName;
+	
+	public String getStandardName() {
+		return standardName;
+	}
 
+	public void setStandardName(String standardName) {
+		this.standardName = standardName;
+	}
 
+	public Subject(long subjectID, String subName) {
+		super();
+		this.subjectID = subjectID;
+		this.subName = subName;
+	}
 
+	public Subject() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public long getFkStandaradID() {
 		return fkStandaradID;
@@ -40,6 +57,8 @@ public class Subject {
 	public void setSubName(String subName) {
 		this.subName = subName;
 	}
+
+	
 
 
 

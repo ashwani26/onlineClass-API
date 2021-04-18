@@ -1,10 +1,11 @@
 package com.example.demo.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.LiveClassScheduleService;
@@ -18,15 +19,11 @@ public class LiveClassScheduleController {
 	private LiveClassScheduleService service;
 	
 	
-	@RequestMapping(value="/save",method = RequestMethod.POST)    
-    public String saveLiveClassSchedule(@ModelAttribute("liveClassSchedule") LiveClassSchedule liveClassSchedule){    
-		service.save(liveClassSchedule);    
-        return "redirect:/";
+	@PostMapping(value="/saveSchedule")    
+    public ResponseEntity<String> saveLiveClassSchedule(@RequestBody LiveClassSchedule liveClassSchedule){    
+			service.save(liveClassSchedule);    
+		 return new ResponseEntity<>("Schedule added successfully", HttpStatus.OK);
     }   
 	
-	@RequestMapping(value="/editsave",method = RequestMethod.POST)    
-    public String editsaveLiveClassSchedule(@ModelAttribute("liveClassSchedule") LiveClassSchedule liveClassSchedule){    
-		//service.update(liveClassSchedule);    
-        return "redirect:/";    
-    }   
+	  
 }

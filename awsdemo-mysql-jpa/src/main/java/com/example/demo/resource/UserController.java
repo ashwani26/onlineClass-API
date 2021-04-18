@@ -95,5 +95,16 @@ public class UserController {
 		 return new ResponseEntity<>("User updated successfully", HttpStatus.OK); 
 	}
 	
+	// DashBoard Info
+	@GetMapping("/getTeacherCount")
+	public int getTeacherCount() {
+		return service.findUserByRoleTypeli(UserRoleType.TEACHER).size();
+	}
+	
+	@GetMapping("/getStudentCount")
+	public int getStudentCount() {
+		return service.findUserByRoleTypeli(UserRoleType.STUDENT).size();
+	}
+	
 	
 }

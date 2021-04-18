@@ -15,6 +15,15 @@ public class FreeStudyMateral {
 	private long fkTopicID;
 	private String descriptions;
 	private long fkDocLibID;
+	private String downLoadPath;
+
+	public String getDownLoadPath() {
+		return downLoadPath;
+	}
+
+	public void setDownLoadPath(String downLoadPath) {
+		this.downLoadPath = downLoadPath;
+	}
 
 	public long getFreeStudymaterialID() {
 		return freeStudymaterialID;

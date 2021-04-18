@@ -67,7 +67,7 @@ public class UserService {
     
     
     public List<User> findUserByRoleTypeli(UserRoleType roleType) {
-    	return repoUser.findUserByRoleType();
+    	return repoUser.findUserByRoleType(roleType.ordinal());
     	
     }
     public List<User> findUserByStandardID(long fkStandardId,UserRoleType roleType) {

@@ -19,7 +19,7 @@ public class User {
 	private String eID;
 	private String mobile;
 	private String email;
-	private UserRoleType roleType;
+	private int roleType;
 	private String userImagePath;
 	private String country;
 	private String state;
@@ -136,13 +136,17 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	public UserRoleType getRoleType() {
+
+
+	public int getRoleType() {
 		return roleType;
 	}
 
-	public void setRoleType(UserRoleType roleType) {
+
+	public void setRoleType(int roleType) {
 		this.roleType = roleType;
 	}
+
 
 	public long getUserID() {
 		return userID;

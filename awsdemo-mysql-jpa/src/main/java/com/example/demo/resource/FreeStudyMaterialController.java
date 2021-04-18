@@ -1,10 +1,12 @@
 package com.example.demo.resource;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,7 @@ import com.example.demo.Service.DocumentLibraryService;
 import com.example.demo.Service.FileStorageService;
 import com.example.demo.Service.FreeStudyMaterialService;
 import com.example.demo.customException.FileStorageException;
+import com.example.demo.model.Chapter;
 import com.example.demo.model.DocumentLibrary;
 import com.example.demo.model.FreeStudyMateral;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -68,7 +71,10 @@ public class FreeStudyMaterialController {
 					DocumentLibrary docLib =  new DocumentLibrary(uuid.toString(),fileName, fileDownloadUri, file.getContentType(), file.getSize());
 					docLib =  docService.save(docLib);
 					if(docLib!=null)
+					{
 						fsmObj.setFkDocLibID(docLib.getDocLibID());
+					fsmObj.setDownLoadPath(fileDownloadUri);
+					}
 					service.save(fsmObj);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -78,6 +84,11 @@ public class FreeStudyMaterialController {
 
 				return ;
 	  }
+	
+	@GetMapping("/getFSM/{topicID}")
+	public FreeStudyMateral getFreeStudyMaterial(@PathVariable  String topicID) {
+		return service.getFreeStudyMaterialByTopicID(Long.valueOf(topicID));
+	}
 	
 	
 	

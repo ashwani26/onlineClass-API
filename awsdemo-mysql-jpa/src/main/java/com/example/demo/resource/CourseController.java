@@ -35,21 +35,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @CrossOrigin
 public class CourseController {
-	 @Autowired
-	    private FileStorageService fileStorageService;
-		 @Autowired 
-		 private DocumentLibraryService docService;
-		 @Autowired
-			private CourseService service;
-		 @Autowired
-		 private StandardService standardService;
-		 @Autowired
-		 private SubjectService subjectService;
-		 @Autowired
-			private UserService teacherService;
-		 
-		
-		 
+	@Autowired
+	private FileStorageService fileStorageService;
+	@Autowired
+	private DocumentLibraryService docService;
+	@Autowired
+	private CourseService service;
+	@Autowired
+	private StandardService standardService;
+	@Autowired
+	private SubjectService subjectService;
+	@Autowired
+	private UserService teacherService;
+
 	private static String UPLOADED_FOLDER = "/home/amitk/studymaterial/freelancing/lms/cdn";
 
 	@GetMapping("/course")
@@ -58,52 +56,55 @@ public class CourseController {
 	}
 
 	@PostMapping("/course")
-	public ResponseEntity<String> addCourse(@RequestParam("course")  String course,@RequestParam("file") MultipartFile file) {
-	// upload file
+	public ResponseEntity<String> addCourse(@RequestParam("course") String course,
+			@RequestParam("file") MultipartFile file) {
+		// upload file
 		String fileName = null;
 		Course courseObj = null;
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			 courseObj = mapper.readValue(course, Course.class);
-			
+			courseObj = mapper.readValue(course, Course.class);
+
 			fileName = fileStorageService.storeFile(file);
 		} catch (FileStorageException e) {
-			 return new ResponseEntity<>("Course registration failed-FileStorageException", HttpStatus.INTERNAL_SERVER_ERROR);
-				
+			return new ResponseEntity<>("Course registration failed-FileStorageException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
 		} catch (JsonMappingException e) {
-			 return new ResponseEntity<>("Course registration failed-JsonMappingException", HttpStatus.INTERNAL_SERVER_ERROR);
-				
+			return new ResponseEntity<>("Course registration failed-JsonMappingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
 		} catch (JsonProcessingException e) {
-			 return new ResponseEntity<>("Course registration failed-JsonProcessingException", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Course registration failed-JsonProcessingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-        try {
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath() .path("/downloadFile/").path(fileName).toUriString();
+		try {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(fileName).toUriString();
 			UUID uuid = UUID.randomUUID();
-			DocumentLibrary docLib =  new DocumentLibrary(uuid.toString(),fileName, fileDownloadUri, file.getContentType(), file.getSize());
-			docLib =  docService.save(docLib);
-			if(docLib!=null)
-			{
+			DocumentLibrary docLib = new DocumentLibrary(uuid.toString(), fileName, fileDownloadUri,
+					file.getContentType(), file.getSize());
+			docLib = docService.save(docLib);
+			if (docLib != null) {
 				courseObj.setFkDocumentLibID(docLib.getDocLibID());
 				courseObj.setLogoPath(fileDownloadUri);
 				courseObj.setSubjectName(subjectService.get(courseObj.getFkSubjectID()).getSubName());
 				courseObj.setStandardName(standardService.get(courseObj.getFkStandardID()).getClassName());
-				// set document 
+				// set document
 			}
 			service.save(courseObj);
 		} catch (Exception e) {
-			 return new ResponseEntity<>("Course registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Course registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-        return new ResponseEntity<>("Course added successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Course added successfully", HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllCourse")
 	public List<Course> getAllCourse() {
 		return service.listAll();
 	}
-	
-
 
 	@GetMapping("/getAllCourse/{courseID}")
 	public Course getCourseByCourseID(@PathVariable("courseID") String courseID) {
@@ -119,61 +120,69 @@ public class CourseController {
 		}
 		return getAllCourse();
 	}
-	
+
 	@GetMapping("/getAllDayMaster")
 	public DayMaster[] getAllDayMaster() {
 		return DayMaster.values();
 	}
-	
+
 	@GetMapping("/deleteCourse/{courseID}")
 	public ResponseEntity<String> deleteCourseByCourseID(@PathVariable("courseID") String courseID) {
-		 service.delete(Long.valueOf(courseID));
-		 return new ResponseEntity<>("Course deleted successfully", HttpStatus.OK);
+		service.delete(Long.valueOf(courseID));
+		return new ResponseEntity<>("Course deleted successfully", HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/saveTeacher")
-	public ResponseEntity<String> saveTeacher(@RequestParam("teacher")  String teacher,@RequestParam("file") MultipartFile file) {
-	// upload file
+	public ResponseEntity<String> saveTeacher(@RequestParam("teacher") String teacher,
+			@RequestParam("file") MultipartFile file) {
+		// upload file
 		String fileName = null;
 		User userObj = null;
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			 userObj = mapper.readValue(teacher, User.class);
-			
+			userObj = mapper.readValue(teacher, User.class);
+
 			fileName = fileStorageService.storeFile(file);
 		} catch (FileStorageException e) {
-			 return new ResponseEntity<>("Teacher registration failed-FileStorageException", HttpStatus.INTERNAL_SERVER_ERROR);
-				
+			return new ResponseEntity<>("Teacher registration failed-FileStorageException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
 		} catch (JsonMappingException e) {
-			 return new ResponseEntity<>("Teacher registration failed-JsonMappingException", HttpStatus.INTERNAL_SERVER_ERROR);
-				
+			return new ResponseEntity<>("Teacher registration failed-JsonMappingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
 		} catch (JsonProcessingException e) {
-			 return new ResponseEntity<>("Teacher registration failed-JsonProcessingException", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Teacher registration failed-JsonProcessingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-        try {
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath() .path("/downloadFile/").path(fileName).toUriString();
+		try {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(fileName).toUriString();
 			UUID uuid = UUID.randomUUID();
-			DocumentLibrary docLib =  new DocumentLibrary(uuid.toString(),fileName, fileDownloadUri, file.getContentType(), file.getSize());
-			docLib =  docService.save(docLib);
-			if(docLib!=null)
-			{
+			DocumentLibrary docLib = new DocumentLibrary(uuid.toString(), fileName, fileDownloadUri,
+					file.getContentType(), file.getSize());
+			docLib = docService.save(docLib);
+			if (docLib != null) {
 				// set role type teacher
-				userObj.setRoleType(UserRoleType.TEACHER);
+				userObj.setRoleType(UserRoleType.TEACHER.ordinal());
 				userObj.setFkDocumentLibraryID(docLib.getDocLibID());
 				userObj.setUserImagePath(fileDownloadUri);
 				userObj.setSubjectName(subjectService.get(userObj.getFkSubjectID()).getSubName());
 				userObj.setStandardName(standardService.get(userObj.getFkStandardID()).getClassName());
-				// set document 
+				// set document
 			}
 			teacherService.save(userObj);
 		} catch (Exception e) {
-			 return new ResponseEntity<>("Teacher registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Teacher registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-        return new ResponseEntity<>("Teacher added successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Teacher added successfully", HttpStatus.OK);
 	}
-	
-	
+
+	@GetMapping("/getCourseCount")
+	public int getCourseCount() {
+		return service.listAll().size();
+	}
 
 }

@@ -11,6 +11,25 @@ public class Standard {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long standardID;
 	private String className;
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Standard(long standardID, String className) {
+		super();
+		this.standardID = standardID;
+		this.className = className;
+	}
+
+	public Standard() {
+		super();
+	}
 
 	public long getStandardID() {
 		return standardID;

@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.demo.model.User;
+import com.example.demo.model.UserRoleType;
 
 public interface UserCustomeRepository {
 	
-	@Query("SELECT u from User u where u.roleType=1")
-	public List<User> findUserByRoleType();
+	@Query("SELECT u from User u where u.roleType=:roleType")
+	public List<User> findUserByRoleType(int roleType);
 	
 	@Query("SELECT us from User us,UserStandardAssociation usa where usa.fkUserID = us.userID and usa.fkStandardId=:fkStandardId and us.roleType=1")
 	public List<User> findUserByStandardID(@Param("fkStandardId") long fkStandardId);

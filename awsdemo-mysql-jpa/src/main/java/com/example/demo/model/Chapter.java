@@ -15,6 +15,15 @@ public class Chapter {
 	private long fkSubjectID;
 	
 	
+	public Chapter(long chapterID, String chapterName) {
+		super();
+		this.chapterID = chapterID;
+		this.chapterName = chapterName;
+	}
+	public Chapter() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public long getFkSubjectID() {
 		return fkSubjectID;
 	}
