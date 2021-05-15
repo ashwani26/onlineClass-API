@@ -45,6 +45,14 @@ public class CourseService {
         return repo.findStudyMaterialByCourseID(CourseID);
     }
     
+    public List<Course>  getAllRegisteredCoursebyStudent(long studentID){
+    	return repo.getAllRegisteredCoursebyStudent(studentID);
+    }
+    
+    public List<Course> getAllCourseNotRegisteredbyStudent(long studentID){
+    	return repo.getAllCourseNotRegisteredbyStudent(studentID);
+    }
+    
 	/*
 	 * @Transactional public boolean saveCourseAndLogo(Course course,MultipartFile
 	 * file) { DocumentLibrary docLib = new DocumentLibrary();

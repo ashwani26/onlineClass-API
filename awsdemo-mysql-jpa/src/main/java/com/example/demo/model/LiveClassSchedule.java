@@ -17,6 +17,29 @@ public class LiveClassSchedule {
 	private long fkUserID;
 	private Date scheduleDate;
 	private long fkSlotID;
+	private boolean isEnded;
+	private long studyDuration;
+	
+
+	public long getStudyDuration() {
+		return studyDuration;
+	}
+
+	public void setStudyDuration(long studyDuration) {
+		this.studyDuration = studyDuration;
+	}
+
+	public void setEnded(boolean isEnded) {
+		this.isEnded = isEnded;
+	}
+
+	public boolean getIsEnded() {
+		return isEnded;
+	}
+
+	public void setIsEnded(boolean isEnded) {
+		this.isEnded = isEnded;
+	}
 
 	public long getLiveClassScheduleID() {
 		return liveClassScheduleID;

@@ -20,7 +20,7 @@ public class Course {
 
 	// private CourseCategory courseCategory;
 	private long fkStandardID;
-	private long fkSubjectID;
+	private long fkSubjectID;	
 	private boolean status;
 	private Date endDate;
 	private String description;
@@ -29,6 +29,15 @@ public class Course {
 	private String logoPath;
 	private String subjectName;
 	private String standardName;
+	private int discountPer;
+
+	public int getDiscountPer() {
+		return discountPer;
+	}
+
+	public void setDiscountPer(int discountPer) {
+		this.discountPer = discountPer;
+	}
 
 	public String getStandardName() {
 		return standardName;

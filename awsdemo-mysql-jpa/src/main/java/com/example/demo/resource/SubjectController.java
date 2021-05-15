@@ -43,7 +43,7 @@ public class SubjectController {
 	}
 	
 	@GetMapping("/getAllSubject/{standardID}")
-	public List<Subject> getAllSubjectByUserID(@PathVariable  String standardID) {
+	public List<Subject> getAllSubjectByUserID(@PathVariable("standardID")  String standardID) {
 		 List<Subject> listOfSubject = service.getListofSubjectByStandardID(Long.valueOf(standardID));
 		 
 		 return listOfSubject;

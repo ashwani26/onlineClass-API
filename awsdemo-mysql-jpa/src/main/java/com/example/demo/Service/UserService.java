@@ -75,4 +75,8 @@ public class UserService {
     	
     }
     
+    public List<User> getTeacherBySubjectID(int roleType,long subjectID){
+    	return repoUser.getTeacherBySubjectID(roleType, subjectID);
+    }
+    
 }

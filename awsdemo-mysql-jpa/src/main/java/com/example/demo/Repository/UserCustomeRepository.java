@@ -14,6 +14,9 @@ public interface UserCustomeRepository {
 	@Query("SELECT u from User u where u.roleType=:roleType")
 	public List<User> findUserByRoleType(int roleType);
 	
+	@Query("SELECT u from User u where u.roleType=:roleType and u.fkSubjectID=:subjectID")
+	public List<User> getTeacherBySubjectID(int roleType,long subjectID);
+	
 	@Query("SELECT us from User us,UserStandardAssociation usa where usa.fkUserID = us.userID and usa.fkStandardId=:fkStandardId and us.roleType=1")
 	public List<User> findUserByStandardID(@Param("fkStandardId") long fkStandardId);
 	

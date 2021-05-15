@@ -11,6 +11,16 @@ public class SlotMaster {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long slotID;
 	private String slotName;
+	private long slotDuration;
+	
+	
+	public long getSlotDuration() {
+		return slotDuration;
+	}
+
+	public void setSlotDuration(long slotDuration) {
+		this.slotDuration = slotDuration;
+	}
 
 	public long getSlotID() {
 		return slotID;

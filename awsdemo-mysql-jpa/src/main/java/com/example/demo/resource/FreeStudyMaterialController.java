@@ -87,7 +87,11 @@ public class FreeStudyMaterialController {
 	
 	@GetMapping("/getFSM/{topicID}")
 	public FreeStudyMateral getFreeStudyMaterial(@PathVariable  String topicID) {
-		return service.getFreeStudyMaterialByTopicID(Long.valueOf(topicID));
+		List<FreeStudyMateral> fsmList = null;
+		fsmList = service.getFreeStudyMaterialByTopicID(Long.valueOf(topicID));
+		if(fsmList!=null && !fsmList.isEmpty())
+		return service.getFreeStudyMaterialByTopicID(Long.valueOf(topicID)).get(0);
+		else return null;
 	}
 	
 	

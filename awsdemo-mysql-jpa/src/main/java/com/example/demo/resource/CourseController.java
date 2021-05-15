@@ -184,5 +184,19 @@ public class CourseController {
 	public int getCourseCount() {
 		return service.listAll().size();
 	}
+	
+	@GetMapping("/getCourseToBuy/{studentID}")
+	public List<Course> getNonRegisteredCourseForStudent(@PathVariable("studentID") String studentID) {
+		return service.getAllCourseNotRegisteredbyStudent(Long.valueOf(studentID));
+	}
+	
+	@GetMapping("/getAllreadyRegisteredCourse/{studentID}")
+	public List<Course> getAllCourseregisteredByStudent(@PathVariable("studentID") String studentID) {
+		return service.getAllRegisteredCoursebyStudent(Long.valueOf(studentID));
+	}
 
+	@GetMapping("/getAllCourseToBuy/{studentID}")
+	public List<Course> getAllCourseNotRegisteredbyStudent(@PathVariable("studentID") String studentID) {
+		return service.getAllCourseNotRegisteredbyStudent(Long.valueOf(studentID));
+	}
 }

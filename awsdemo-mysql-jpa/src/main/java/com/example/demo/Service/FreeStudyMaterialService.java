@@ -34,7 +34,7 @@ public class FreeStudyMaterialService {
     	repo1.deleteById(id);
     }
     
-    public FreeStudyMateral getFreeStudyMaterialByTopicID(long topicID) {
+    public List<FreeStudyMateral> getFreeStudyMaterialByTopicID(long topicID) {
     	return repo1.getFreeStudyMaterialByTopicID(topicID);
     }
     
