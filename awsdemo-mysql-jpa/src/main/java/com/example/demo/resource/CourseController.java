@@ -108,7 +108,8 @@ public class CourseController {
 
 	@GetMapping("/getAllCourse/{courseID}")
 	public Course getCourseByCourseID(@PathVariable("courseID") String courseID) {
-		return service.get(Long.valueOf(courseID));
+		Course courseObj = service.get(Long.valueOf(courseID));
+		return courseObj;
 	}
 
 	@GetMapping("/updateCourse/{courseID}")
