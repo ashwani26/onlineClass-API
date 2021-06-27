@@ -88,11 +88,11 @@ public class User {
 		this.isAvailable = isAvailable;
 	}
 
-	public boolean getIsPremium() {
+	public boolean isPremium() {
 		return isPremium;
 	}
 
-	public void setIsPremium(boolean isPremium) {
+	public void setPremium(boolean isPremium) {
 		this.isPremium = isPremium;
 	}
 

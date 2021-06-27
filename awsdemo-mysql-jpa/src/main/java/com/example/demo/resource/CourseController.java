@@ -200,9 +200,4 @@ public class CourseController {
 	public List<Course> getAllCourseNotRegisteredbyStudent(@PathVariable("studentID") String studentID) {
 		return service.getAllCourseNotRegisteredbyStudent(Long.valueOf(studentID));
 	}
-	
-//	@GetMapping("/getAllCourse/{standardID}")
-//	public List<Course> getAllCourseByStandardId(@PathVariable("standardID") String standardID) {
-//		return service.getAllCourseByStandardID(Long.valueOf(standardID));
-//	}
 }
