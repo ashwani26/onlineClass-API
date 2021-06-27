@@ -27,12 +27,15 @@ public interface CourseRepositoryCustom {
 	@Query("SELECT sm from CourseStudyMaterial csm,StudyMaterial sm where sm.ID = csm.studyMaterialID and csm.courseID=:courseID")
 	public List<CourseViewModel> getCourseViewModel();
 	
-	@Query("select c from Course c where c.courseID  in(select fkCourseID from CourseStudentAssociation where fk_userid=:studentID)")
+	@Query("select c from Course c where c.courseID  in(select fkCourseID from CourseStudentAssociation where fkUserID=:studentID)")
 	public List<Course> getAllRegisteredCoursebyStudent(long studentID);
 	
 	//  select * from course where courseid not in(select fk_courseid from course_student_association where fk_userid=2) ;
 	//@Query("SELECT c from Course c left join CourseStudentAssociation csa on c.courseID=csa.fkCourseID  where csa.courseStudentAssociationID is null or  csa.fkUserID<>:studentID")
-	@Query("select c from Course c where c.courseID not in(select fkCourseID from CourseStudentAssociation where fk_userid=:studentID)")
+	@Query("select c from Course c where c.courseID not in(select fkCourseID from CourseStudentAssociation where fkUserID=:studentID)")
 	public List<Course> getAllCourseNotRegisteredbyStudent(long studentID);
+	
+//	@Query("select c from Course c where  c.fkStandardID=:standardID)")
+//	public List<Course> getAllCourseByStandardID(@Param("courseID")long standardID);
 	
 }

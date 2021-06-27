@@ -53,6 +53,10 @@ public class CourseService {
     	return repo.getAllCourseNotRegisteredbyStudent(studentID);
     }
     
+    
+//   public  List<Course> getAllCourseByStandardID(long standardID){
+//	   return repo.getAllCourseByStandardID(standardID);
+//    }
 	/*
 	 * @Transactional public boolean saveCourseAndLogo(Course course,MultipartFile
 	 * file) { DocumentLibrary docLib = new DocumentLibrary();
