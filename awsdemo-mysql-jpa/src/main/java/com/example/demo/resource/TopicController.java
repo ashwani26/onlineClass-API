@@ -37,8 +37,18 @@ public class TopicController {
 		return service.listAll();
 	}
 	
-	@GetMapping("/getAllTopic/{topicID}")
-	public List<Topic> getAllTopicByChapterID(@PathVariable  String topicID) {
-		return service.getListofTopicByChpID(Long.valueOf(topicID));
+	@GetMapping("/getAllTopic/{chapterID}")
+	public List<Topic> getAllTopicByChapterID(@PathVariable  String chapterID) {
+		return service.getListofTopicByChpID(Long.valueOf(chapterID));
+	}
+	
+	@GetMapping("/getAllTopicForFSM/{chapterID}")
+	public List<Topic> getAllTopicByChapterIDForFreeStudyMaterial(@PathVariable  String chapterID) {
+		return service.getListofTopicFreeStudyMaterialVailable(Long.valueOf(chapterID));
+	}
+	
+	@GetMapping("/getAllTopicForPremium/{chapterID}")
+	public List<Topic> getAllTopicByChapterIDForPremium(@PathVariable  String chapterID) {
+		return service.getListofTopicPremiumStudyMaterialVailable(Long.valueOf(chapterID));
 	}
 }

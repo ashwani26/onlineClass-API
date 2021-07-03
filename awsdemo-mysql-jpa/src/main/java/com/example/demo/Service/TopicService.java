@@ -37,5 +37,15 @@ public class TopicService {
     public List<Topic> getListofTopicByChpID(long ChpID){
     	return repo.getListofTopicByChapterID(ChpID);
     }
+    
+    public List<Topic> getListofTopicFreeStudyMaterialVailable(long ChpID){
+    	return repo.getListofTopicFreeStudyMaterialVailable(ChpID);
+    }
+    
+    public List<Topic> getListofTopicPremiumStudyMaterialVailable(long ChpID){
+    	return repo.getListofTopicPremiumStudyMaterialVailable(ChpID);
+    }
+    
+    
 
 }

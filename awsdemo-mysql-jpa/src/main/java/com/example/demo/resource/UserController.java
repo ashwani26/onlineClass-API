@@ -182,5 +182,11 @@ public class UserController {
 		return service.findUserByRoleTypeli(UserRoleType.STUDENT).size();
 	}
 	
+	@GetMapping("/deleteUser/{userID}")
+	public ResponseEntity<String> deleteCourseByCourseID(@PathVariable("userID") String userID) {
+		service.delete(Long.valueOf(userID));
+		return new ResponseEntity<>("user deleted successfully", HttpStatus.OK);
+	}
+	
 	
 }

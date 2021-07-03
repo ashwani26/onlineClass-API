@@ -17,8 +17,8 @@ public interface CourseRepositoryCustom {
 	public List<StudyMaterial> findStudyMaterialByCourseID(@Param("courseID") long courseID);
 	
 	@Modifying
-	@Query("update Course c set c.courseName =?1, c.fkStandardID=?2,c.status=?3,c.startDate =?4,c.endDate=?5,c.description=?6,c.price =?7 where c.courseID=?8")
-	public void updateByCourseID(String courseName,long fkStandardID,boolean status,Date startDate,Date endDate,String description,double price ,long courseID);
+	@Query("update Course c set c.courseName =?1, c.fkStandardID=?2,c.status=?3,c.startDate =?4,c.endDate=?5,c.description=?6,c.price =?7,logoPath=?8 where c.courseID=?9")
+	public void updateByCourseID(String courseName,long fkStandardID,boolean status,Date startDate,Date endDate,String description,double price ,String logoPath,long courseID);
 	
 	
 	// save course and document library in one method

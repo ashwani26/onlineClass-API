@@ -111,15 +111,59 @@ public class CourseController {
 		Course courseObj = service.get(Long.valueOf(courseID));
 		return courseObj;
 	}
+	
+	@GetMapping("/getCourseDetail/{courseID}")
+	public Course getCourseDetailByCourseID(@PathVariable("courseID") String courseID) {
+		Course courseObj = service.get(Long.valueOf(courseID));
+		return courseObj;
+	}
 
-	@GetMapping("/updateCourse/{courseID}")
-	public List<Course> updateCourseByCourseID(@RequestBody Course course) {
+	@PostMapping("/updateCourse")
+	public ResponseEntity<String> updateCourse(@RequestParam("course") String course,
+			@RequestParam("file") MultipartFile file) {
+		// upload file
+		String fileName = null;
+		Course courseObj = null;
 		try {
-			service.update(course);
-		} catch (Exception e) {
-			return null;
+			ObjectMapper mapper = new ObjectMapper();
+			courseObj = mapper.readValue(course, Course.class);
+			if(!fileStorageService.deletePrevFile(file)) {
+				throw new FileStorageException("FIle deletion failed");
+			}
+			fileName = fileStorageService.storeFile(file);
+		} catch (FileStorageException e) {
+			return new ResponseEntity<>("Course registration failed-FileStorageException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (JsonMappingException e) {
+			return new ResponseEntity<>("Course registration failed-JsonMappingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (JsonProcessingException e) {
+			return new ResponseEntity<>("Course registration failed-JsonProcessingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return getAllCourse();
+
+		try {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(fileName).toUriString();
+			UUID uuid = UUID.randomUUID();
+			DocumentLibrary docLib = new DocumentLibrary(uuid.toString(), fileName, fileDownloadUri,
+					file.getContentType(), file.getSize());
+			docLib = docService.save(docLib);
+			if (docLib != null) {
+				courseObj.setFkDocumentLibID(docLib.getDocLibID());
+				courseObj.setLogoPath(fileDownloadUri);
+				courseObj.setSubjectName(subjectService.get(courseObj.getFkSubjectID()).getSubName());
+				courseObj.setStandardName(standardService.get(courseObj.getFkStandardID()).getClassName());
+				// set document
+			}
+			service.update(courseObj);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Course updation failed", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("Course updated successfully", HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllDayMaster")
@@ -181,6 +225,55 @@ public class CourseController {
 		return new ResponseEntity<>("Teacher added successfully", HttpStatus.OK);
 	}
 
+	@PostMapping("/updateUserProfile")
+	public ResponseEntity<String> updateUserProfile(@RequestParam("user") String user,
+			@RequestParam("file") MultipartFile file) {
+		// upload file
+		String fileName = null;
+		User userObj = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			userObj = mapper.readValue(user, User.class);
+
+			fileName = fileStorageService.storeFile(file);
+		} catch (FileStorageException e) {
+			return new ResponseEntity<>("Teacher registration failed-FileStorageException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (JsonMappingException e) {
+			return new ResponseEntity<>("Teacher registration failed-JsonMappingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (JsonProcessingException e) {
+			return new ResponseEntity<>("Teacher registration failed-JsonProcessingException",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		try {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(fileName).toUriString();
+			UUID uuid = UUID.randomUUID();
+			DocumentLibrary docLib = new DocumentLibrary(uuid.toString(), fileName, fileDownloadUri,
+					file.getContentType(), file.getSize());
+			docLib = docService.save(docLib);
+			User userDbObj = null;
+			if (docLib != null) {
+				
+				 userDbObj = teacherService.get(userObj.getUserID()) ;
+				userDbObj.setFkDocumentLibraryID(docLib.getDocLibID());
+				userDbObj.setUserImagePath(fileDownloadUri);
+				userDbObj.setMobile(userObj.getMobile());
+				userDbObj.setEmail(userObj.getEmail());
+				// set document
+			}
+			teacherService.updateUserByUserName(userDbObj);  
+		} catch (Exception e) {
+			return new ResponseEntity<>("User Profile update failed", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("User Profile added successfully", HttpStatus.OK);
+	}
+	
 	@GetMapping("/getCourseCount")
 	public int getCourseCount() {
 		return service.listAll().size();

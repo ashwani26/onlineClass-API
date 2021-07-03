@@ -16,6 +16,26 @@ public class FreeStudyMateral {
 	private String descriptions;
 	private long fkDocLibID;
 	private String downLoadPath;
+	private long fkCourseID;
+	private boolean isPremium;
+	
+	
+
+	public long getFkCourseID() {
+		return fkCourseID;
+	}
+
+	public void setFkCourseID(long fkCourseID) {
+		this.fkCourseID = fkCourseID;
+	}
+
+	public boolean getIsPremium() {
+		return isPremium;
+	}
+
+	public void setIsPremium(boolean isPremium) {
+		this.isPremium = isPremium;
+	}
 
 	public String getDownLoadPath() {
 		return downLoadPath;
