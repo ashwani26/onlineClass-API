@@ -1,6 +1,9 @@
 package com.example.demo.resource;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +19,15 @@ import com.example.demo.Service.CourseService;
 import com.example.demo.Service.OptionService;
 import com.example.demo.Service.PaperService;
 import com.example.demo.Service.QuestionService;
+import com.example.demo.model.CandidateAnswer;
+import com.example.demo.model.CandidateExam;
 import com.example.demo.model.Course;
 import com.example.demo.model.Paper;
 import com.example.demo.model.Question;
 import com.example.demo.model.QuestionOption;
 import com.example.demo.model.QuestionOptionViewModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @CrossOrigin
@@ -52,7 +59,8 @@ public class PaperController {
 	  }
 	
 	@PostMapping("/saveQuestion")
-	 ResponseEntity<Long> addQuestion(@RequestBody QuestionOptionViewModel questionVM) {
+	 ResponseEntity<Paper> addQuestion(@RequestBody QuestionOptionViewModel questionVM) {
+		Paper paperObj = null;
 		try {
 			Question questionObj = new Question();
 			questionObj.setQuestionTxt(questionVM.getQuestionTxt());
@@ -60,7 +68,6 @@ public class PaperController {
 			questionObj.setNoOfOption(4);
 			questionObj.setCorrectOptionID(questionVM.getCorrectOptionID());
 			questionService.save(questionObj);
-			
 			// save option data
 			if(questionObj.getQuestionID()>0)
 			{
@@ -72,12 +79,17 @@ public class PaperController {
 			optionObj.setOptionText4(questionVM.getOptionText4());
 			optionService.save(optionObj);
 			}
+			 paperObj = new Paper();
+				paperObj.setPaperID(questionVM.getFkPaperID());
+				paperObj.setTotalQuestion(paperService.getListOfQuestionByPaperID(questionVM.getFkPaperID()).size());
+				
 			
 		} catch (Exception e) {
-			return new ResponseEntity<>(questionVM.getFkPaperID(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			
 		}
-		return new ResponseEntity<>(questionVM.getFkPaperID(), HttpStatus.OK); 
+		
+		return new ResponseEntity<>(paperObj, HttpStatus.OK); 
 	  }
 	
 
@@ -96,9 +108,70 @@ public class PaperController {
 		return paperService.listAll();
 	}
 	
+	@GetMapping("/getStudentReport/{userID}")
+	public List<CandidateExam> getStudentReport(@PathVariable("userID") long userID) {
+		return questionService.getStudentReport(userID);
+	}
+	
 	@GetMapping("/allqn/{paperID}")
 	public List<Question> getAllQuestion(@PathVariable("paperID") long paperID) {
 		return questionService.listAll();
 	}
+	
+	@PostMapping("/saveAnswer")
+	 ResponseEntity<Boolean> addCandiateAnswer(@RequestBody String candiadteAnswerList) {
+	ObjectMapper mapper = new ObjectMapper();
+	final int totalCorrectQuestion = 0;
+		try {
+			
+			
+			CandidateAnswer[] answers = mapper.readValue(candiadteAnswerList, CandidateAnswer[].class);
+			List<CandidateAnswer> candAnsList = Arrays.stream(answers).collect(Collectors.toList());
+			
+			// check whether exam already attempted
+						if(questionService.isExamAlreadyAttempted(candAnsList.get(0).getFkPaperID(), candAnsList.get(0).getFkUserID())) {
+							return new ResponseEntity<>(false, HttpStatus.ALREADY_REPORTED); 
+						}
+			candAnsList.stream()
+	         .filter(ans -> ans.getAttemptedOptionID()==ans.getCorrectOptionID())
+	         .forEach(ans -> ans.setIsCorrect(true));
+			Date attemptDate = new Date();
+			long correctAns = candAnsList.stream().filter(ans -> ans.getAttemptedOptionID()==ans.getCorrectOptionID()).count();
+		Paper paperObj = paperService.get(candAnsList.get(0).getFkPaperID());
+			
+			candAnsList.stream().forEach(ans -> ans.setAttemptedDate(attemptDate));
+			
+			// save into candiate exam data first
+			int marksObstaoned = (int) (paperObj.getMarksPerQuestion()*correctAns);
+			
+			CandidateExam cexamObj = new CandidateExam();
+			cexamObj.setFkPaperID(candAnsList.get(0).getFkPaperID());
+			cexamObj.setFkUserID(candAnsList.get(0).getFkUserID());
+			cexamObj.setISExamCompleted(true);
+			cexamObj.setMarksObtained(marksObstaoned);
+			cexamObj.setAttemptDate(attemptDate);
+			cexamObj.setTestName(paperObj.getPaperName());
+			cexamObj.setTotalMarks(paperObj.getTotalMarks());
+			
+			questionService.saveCandidateExam(cexamObj);
+			if(cexamObj.getCandidateExamID() > 0)
+			{
+			
+			questionService.saveAllAnswer(candAnsList);
+			}else {
+				throw new Exception("Exception whle saving candidate exam");
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR); 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+
+		return new ResponseEntity<>(true, HttpStatus.OK); 
+	  }
 	
 }

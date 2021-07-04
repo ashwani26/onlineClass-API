@@ -14,7 +14,7 @@ public interface PaperRepositoryCustom {
 	@Query("SELECT qn from Question qn where qn.fkPaperID=:fkPaperID")
 	public List<Question> getQuestions(@Param("fkPaperID") long fkPaperID);
 	
-	@Query("select new com.example.demo.model.QuestionOptionViewModel(qn.questionTxt,opt.optionText1,opt.optionText2,opt.optionText3,opt.optionText4) FROM Question qn ,QuestionOption opt where  opt.fkQuestionID = qn.questionID and qn.fkPaperID=:fkPaperID")
+	@Query("select new com.example.demo.model.QuestionOptionViewModel(qn.questionTxt,opt.optionText1,opt.optionText2,opt.optionText3,opt.optionText4,qn.correctOptionID,qn.questionID) FROM Question qn ,QuestionOption opt where  opt.fkQuestionID = qn.questionID and qn.fkPaperID=:fkPaperID")
 	public List<QuestionOptionViewModel> getListOfQuestionByPaperID(@Param("fkPaperID") long fkPaperID);
 
 	/*

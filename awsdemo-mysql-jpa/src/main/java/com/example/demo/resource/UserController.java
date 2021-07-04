@@ -59,12 +59,13 @@ public class UserController {
 	   
 		User user =service.findUserByUserName( newUser.getuName());
 		if(user!=null) {
-			return new ResponseEntity<>("User Already exists.Please try with different user Name", HttpStatus.PRECONDITION_FAILED);
+			return new ResponseEntity<>("Parents Already exists.Please try with different user Name", HttpStatus.PRECONDITION_FAILED);
 			
 		}else {
+			newUser.setRoleType(UserRoleType.PARENTS.ordinal());
 			service.save(newUser);
 		}
-		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+		return new ResponseEntity<>("Parents registered successfully", HttpStatus.OK);
 		
 	  }
 	
